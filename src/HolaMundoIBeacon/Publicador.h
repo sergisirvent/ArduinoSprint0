@@ -14,7 +14,7 @@ class Publicador {
   // ............................................................
   // ............................................................
 private:
-
+  //atributo privado de la clase
   uint8_t beaconUUID[16] = { 
 	'E', 'P', 'S', 'G', '-', 'G', 'T', 'I', 
 	'-', 'P', 'R', 'O', 'Y', '-', '3', 'A'
@@ -23,6 +23,7 @@ private:
   // ............................................................
   // ............................................................
 public:
+  //constructor de la clase
   EmisoraBLE laEmisora {
 	"GTI-3A", //  nombre emisora
 	  0x004c, // fabricanteID (Apple)
@@ -36,6 +37,7 @@ public:
 public:
 
   // ............................................................
+  //enumerador publico de la clase que contiene valores de CO2, temperatura y ruido.
   // ............................................................
   enum MedicionesID  {
 	CO2 = 11,
@@ -44,6 +46,7 @@ public:
   };
 
   // ............................................................
+  //constructor vacio, sin uso temporalmente
   // ............................................................
   Publicador( ) {
 	// ATENCION: no hacerlo aquí. (*this).laEmisora.encenderEmisora();
@@ -51,12 +54,22 @@ public:
   } // ()
 
   // ............................................................
+  /**
+ * Este metodo se encarga de encender la emisora.NO recibe nada y no devuelve nada.
+ */
   // ............................................................
   void encenderEmisora() {
 	(*this).laEmisora.encenderEmisora();
   } // ()
 
   // ............................................................
+  /**
+ * Este metodo se encarga de publicar la medida de CO2.Recibe un valor que publicar  
+ * y un contador y no devuelve nada.
+ * 
+ * @param {Z} valorCO2 - Valor CO2 a publicar
+ * @param {N} contador - Numero natural que representa al contador
+ */
   // ............................................................
   void publicarCO2( int16_t valorCO2, uint8_t contador,
 					long tiempoEspera ) {
@@ -93,6 +106,14 @@ public:
   } // ()
 
   // ............................................................
+  /**
+ * Este metodo se encarga de publicar la temperatura.Recibe un valor que publicar,  
+ * un contador y un tiempo de espera.No devuelve nada.
+ * 
+ * @param {Z} valorTemperatura - Valor temperatura a publicar
+ * @param {N} contador - Numero natural que representa al contador
+ * @param {N} tiempoEspera - Valor del tiempo de espera
+ */
   // ............................................................
   void publicarTemperatura( int16_t valorTemperatura,
 							uint8_t contador, long tiempoEspera ) {

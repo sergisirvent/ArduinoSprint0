@@ -15,6 +15,8 @@ class PuertoSerie  {
 
 public:
   // .........................................................
+  //Constructor de la clase que recibe por parametro un numero 
+  //natural referente a los baudios
   // .........................................................
   PuertoSerie (long baudios) {
 	Serial.begin( baudios );
@@ -22,6 +24,8 @@ public:
   } // ()
 
   // .........................................................
+  //Metodo que espera que haya algun puerto serie disponible.
+  //NO recibe ni devuelve nada
   // .........................................................
   void esperarDisponible() {
 

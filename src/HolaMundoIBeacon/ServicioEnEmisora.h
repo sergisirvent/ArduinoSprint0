@@ -28,6 +28,16 @@ T *  alReves( T * p, int n ) {
 } // ()
 
 // ----------------------------------------------------
+/**
+ * Este metodo se encarga de cambiar de una string a un natural.
+ *
+ *@param {Texto} pString - String a cambiar.
+ *@param {N} pUint - Numero a rellenar con los datos del string.
+ *@param {Z} tamMax - Valor que indica tamaño maximo.
+ *
+ *@return {N} - Numero resultante.
+ *
+ */
 // ----------------------------------------------------
 uint8_t * stringAUint8AlReves( const char * pString, uint8_t * pUint, int tamMax ) {
 
@@ -57,6 +67,7 @@ public:
 											   BLECharacteristic * chr,
 											   uint8_t * data, uint16_t len); 
   // .........................................................
+  
   // .........................................................
   class Caracteristica {
   private:
@@ -76,6 +87,7 @@ public:
   public:
 
 	// .........................................................
+  //constructor de la clase caracteristica con 1 parametro
 	// .........................................................
 	Caracteristica( const char * nombreCaracteristica_ )
 	  :
@@ -85,6 +97,16 @@ public:
 	} // ()
 
 	// .........................................................
+  /**
+   * Constructor de la clase caracteristica con 5 parametros
+   * 
+   * *@param {Texto} nombreCaracteristica_ - Nombre de la caracteristica.
+   * *@param {N} props - Valor de props.
+   * *@param {SecureMode_t} permisoRead - Permiso para accion read.
+   * *@param {SecureMode_t} permisoWrite - Permiso para accion write.
+   * *@param {N} tam - Valor que refleja el tamaño de la caracteristica.
+   */
+  //
 	// .........................................................
 	Caracteristica( const char * nombreCaracteristica_ ,
 					uint8_t props,
@@ -125,6 +147,14 @@ public:
 
   public:
 	// .........................................................
+  /**
+   * Metodo que asigna propiedades permiso tamanyo y datos a la carac
+   * 
+   * *@param {N} props - Valor de props.
+   * *@param {SecureMode_t} permisoRead - Permiso para accion read.
+   * *@param {SecureMode_t} permisoWrite - Permiso para accion write.
+   * *@param {N} tam - Valor que refleja el tamaño de la caracteristica.
+   */
 	// .........................................................
 	void asignarPropiedadesPermisosYTamanyoDatos( uint8_t props,
 												 SecureMode_t permisoRead,
@@ -137,6 +167,13 @@ public:
 												 
 
 	// .........................................................
+  /**
+   * Metodo que escribe datos en la caracteristica
+   * 
+   * *@param {Texto} str - Datos que se quieren escribir en la caracteristica.
+   *
+   * *@return {N}- Valor escrito de datos en la caracteristica.
+   */
 	// .........................................................
 	uint16_t escribirDatos( const char * str ) {
 	  // Serial.print( " return (*this).laCaracteristica.write( str  = " );
@@ -150,6 +187,13 @@ public:
 	} // ()
 
 	// .........................................................
+  /**
+   * Metodo que notifica datos en la caracteristica
+   * 
+   * *@param {Texto} str - Datos que se quieren notificar en la caracteristica.
+   *
+   * *@return {N}- Valor notificado de datos en la caracteristica.
+   */
 	// .........................................................
 	uint16_t notificarDatos( const char * str ) {
 	  
@@ -159,12 +203,16 @@ public:
 	} //  ()
 
 	// .........................................................
+  //metodo que instala el callback referente a la caracteristica escrita
 	// .........................................................
 	void instalarCallbackCaracteristicaEscrita( CallbackCaracteristicaEscrita cb ) {
 	  (*this).laCaracteristica.setWriteCallback( cb );
 	} // ()
 
 	// .........................................................
+  /**
+   * Metodo que activa la caracteristica.No recibe ni devuelve nada.
+   */
 	// .........................................................
 	void  activar() {
 	  err_t error = (*this).laCaracteristica.begin();
@@ -177,7 +225,8 @@ public:
   // --------------------------------------------------------
   // --------------------------------------------------------
 private:
-  
+
+  //atributos privados
   uint8_t uuidServicio[16] = { // el uuid se copia aquí (al revés) a partir de un string-c
 	// least signficant byte, el primero
 	'0', '1', '2', '3', 
@@ -199,6 +248,8 @@ private:
 public:
   
   // .........................................................
+  //constructor de la clase 
+  //@param {Texto} nombreServicio_ -NOmbre del servicio para construirlo
   // .........................................................
   ServicioEnEmisora( const char * nombreServicio_ )
 	:
@@ -208,6 +259,9 @@ public:
   } // ()
   
   // .........................................................
+  /**
+   * Metodo que escribe uuid.No recibe ni devuelve nada
+   */
   // .........................................................
   void escribeUUID() {
 	Serial.println ( "**********" );
@@ -218,12 +272,21 @@ public:
   } // ()
 
   // .........................................................
+  /**
+   * Metodo que añade una caracteristica
+   * 
+   * *@param {Caracteristica} car - Caracteristica a añadir.
+   *
+   */
   // .........................................................
   void anyadirCaracteristica( Caracteristica & car ) {
 	(*this).lasCaracteristicas.push_back( & car );
   } // ()
 
   // .........................................................
+   /**
+   * Metodo que activa el servicio.No recibe ni devuelve nada.
+   */
   // .........................................................
   void activarServicio( ) {
 	// entiendo que al llegar aquí ya ha sido configurado

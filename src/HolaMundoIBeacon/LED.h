@@ -9,6 +9,14 @@
 // ----------------------------------------------------------
 
 // ----------------------------------------------------------
+/**
+ * Este metodo se encarga de recibir un valor para que el led espere ese tiempo.
+ * No devuelve nada.
+ *
+ *@param {N} tiempo - Valor de tiempo que esperara el led.
+ *
+ *
+ */
 // ----------------------------------------------------------
 void esperar (long tiempo) {
   delay (tiempo);
@@ -18,11 +26,13 @@ void esperar (long tiempo) {
 // ----------------------------------------------------------
 class LED {
 private:
+//atributos privados de la clase
   int numeroLED;
   bool encendido;
 public:
 
   // .........................................................
+  //el constructor de la clase recibe un Z para crear un led
   // .........................................................
   LED (int numero)
 	: numeroLED (numero), encendido(false)
@@ -32,6 +42,9 @@ public:
   }
 
   // .........................................................
+  /**
+ * Este metodo se encarga de encender el led.No recibe ni devuelve nada
+ */
   // .........................................................
   void encender () {
 	digitalWrite(numeroLED, HIGH); 
@@ -39,6 +52,9 @@ public:
   }
 
   // .........................................................
+  /**
+ * Este metodo se encarga de apagar el led.No recibe ni devuelve nada
+ */
   // .........................................................
   void apagar () {
 	  digitalWrite(numeroLED, LOW);
@@ -46,6 +62,9 @@ public:
   }
 
   // .........................................................
+  /**
+ * Este metodo se encarga de alternar el led.No recibe ni devuelve nada
+ */
   // .........................................................
   void alternar () {
 	if (encendido) {
@@ -56,6 +75,14 @@ public:
   } // ()
 
   // .........................................................
+  /**
+ * Este metodo se encarga de recibir un valor para que el led brille ese tiempo, despues lo apagará.
+ * No devuelve nada.
+ *
+ *@param {N} tiempo - Valor de tiempo que brillará el led.
+ *
+ *
+ */
   // .........................................................
   void brillar (long tiempo) {
 	encender ();

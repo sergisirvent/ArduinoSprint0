@@ -25,6 +25,7 @@
 class EmisoraBLE {
 private:
 
+  //atributos privados de la clase
   const char * nombreEmisora;
   const uint16_t fabricanteID;
   const int8_t txPower;
@@ -32,11 +33,13 @@ private:
 public:
 
   // .........................................................
+  //inicializamos callbacks
   // .........................................................
   using CallbackConexionEstablecida = void ( uint16_t connHandle );
   using CallbackConexionTerminada = void ( uint16_t connHandle, uint8_t reason);
 
   // .........................................................
+  //constructor
   // .........................................................
   EmisoraBLE( const char * nombreEmisora_, const uint16_t fabricanteID_,
 			  const int8_t txPower_ ) 
@@ -71,6 +74,10 @@ public:
   */
 	
   // .........................................................
+  //encenderEmisora()
+  /**
+ * Este metodo se encarga de encender la emisora.No recibe ni devuelve nada
+ */
   // .........................................................
   void encenderEmisora() {
 	// Serial.println ( "Bluefruit.begin() " );
@@ -81,22 +88,35 @@ public:
   } // ()
 
   // .........................................................
+  /**
+ * Este metodo se encarga de encender la emisora.Recibe dos callbacks que se encargarán de 
+ * manejar el estado de la conexion
+ *
+ * @param {CallbackConexionEstablecida} cbce - Callback de Conexion Establecida.
+ * @param {CallbackConexionTerminada} cbct - Callback de Conexion Terminada.
+ *
+ * @returns {Number} Descripcion del valor devuelto.
+ */
   // .........................................................
   void encenderEmisora( CallbackConexionEstablecida cbce,
 						CallbackConexionTerminada cbct ) {
 
-	encenderEmisora();
+	encenderEmisora();//llamamos al otro metodo
 
+  //instalamos los callbacks
 	instalarCallbackConexionEstablecida( cbce );
 	instalarCallbackConexionTerminada( cbct );
 
   } // ()
 
   // .........................................................
+  /**
+ * Este metodo se encarga de detener un anuncio.No recibe ni devuelve nada
+ */
   // .........................................................
   void detenerAnuncio() {
 
-	if ( (*this).estaAnunciando() ) {
+	if ( (*this).estaAnunciando() ) {//se comprueba si en efecto esta anunciando
 	  // Serial.println ( "Bluefruit.Advertising.stop() " );
 	  Bluefruit.Advertising.stop(); 
 	}
@@ -104,13 +124,30 @@ public:
   }  // ()
   
   // .........................................................
-  // estaAnunciando() -> Boleano
+  /**
+ * Este metodo se encarga de decir si se esta anunciando o no.No recibe nada y 
+ * devuelve un booleano
+ *
+ *
+ * @returns {Booleano} Booleano devuelto que indica si se esta anunciando o no.
+ */
   // .........................................................
   bool estaAnunciando() {
 	return Bluefruit.Advertising.isRunning();
   } // ()
 
   // .........................................................
+  /**
+ * Este metodo se encarga de emitir un anuncio en un beacon.Recibe una uuid de beacon un valor 
+ * major y minor y un valor rssi.No devuelve nada.
+ *
+ * @param {N} beaconUUID - Uuid del beacon.
+ * @param {Z} major - Valor major.
+ * @param {Z} minor - Valor minor.
+ * @param {N} rssi - Valor rssi.
+ * 
+ *
+ */
   // .........................................................
   void emitirAnuncioIBeacon( uint8_t * beaconUUID, int16_t major, int16_t minor, uint8_t rssi ) {
 
@@ -200,6 +237,15 @@ public:
 
 	const uint8_t tamanyoCarga = strlen( carga );
   */
+
+  /**
+ * Este metodo se encarga de emitir un anuncio en un beacon que esta libre.Recibe un caracter identificativo de carga
+ * y otro valor que indica el tamanyo de la carga.no devuelve nada.
+ *
+ *@param {Texto} carga - Caracter identificativo de la carga.
+ *@param {N} tamanyoCarga - Valor que indica el tamanyo de la carga.
+ *
+ */
   void emitirAnuncioIBeaconLibre( const char * carga, const uint8_t tamanyoCarga ) {
 
 	(*this).detenerAnuncio(); 
@@ -261,6 +307,14 @@ public:
   } // ()
 
   // .........................................................
+  /**
+ * Este metodo se encarga de añadir un servicio.Recibe la referencia de un objeto servicio 
+ * y devuelve un booelano.
+ *
+ *@param {ServicioEnEmisora} servicio - Servicio `pasado por parametro.
+ *@return {N} - Boelano que indica si el servicio se ha añadido.
+ *
+ */
   // .........................................................
   bool anyadirServicio( ServicioEnEmisora & servicio ) {
 
@@ -280,12 +334,32 @@ public:
 
   
   // .........................................................
+  /**
+ * Este metodo se encarga de añadir un servicio con sus caracteristicas.Recibe la referencia de un objeto servicio 
+ * y devuelve un booelano.
+ *
+ *@param {ServicioEnEmisora} servicio - Servicio `pasado por parametro.
+ *@return {N} - Boelano que indica si el servicio se ha añadido.
+ *
+ */
   // .........................................................
   bool anyadirServicioConSusCaracteristicas( ServicioEnEmisora & servicio ) { 
 	return (*this).anyadirServicio( servicio );
   } // 
 
   // .........................................................
+  /**
+ * Este metodo se encarga de añadir un servicio con sus caracteristicas.Recibe la referencia de un objeto servicio, 
+ * un objeto con sus caracteristicas y puede incluir alguna caracteristica mas.
+ * Devuelve un booelano.
+ *
+ *@param {ServicioEnEmisora} servicio - Servicio `pasado por parametro.
+ *@param {Caracteristica} caracteristica - Servicio `pasado por parametro.
+ *
+ *@return {N} - Boelano que indica si el servicio se ha añadido.
+ *
+ */
+  //...........................................................
   template <typename ... T>
   bool anyadirServicioConSusCaracteristicas( ServicioEnEmisora & servicio,
 											 ServicioEnEmisora::Caracteristica & caracteristica,
@@ -298,6 +372,15 @@ public:
   } // ()
 
   // .........................................................
+  /**
+ * Este metodo se encarga de añadir un servicio con sus caracteristicas.Recibe la referencia de un objeto servicio y puede incluir alguna caracteristica mas.
+ * Devuelve un booelano.
+ *
+ *@param {ServicioEnEmisora} servicio - Servicio `pasado por parametro.
+ *
+ *@return {N} - Boelano que indica si el servicio se ha añadido.
+ *
+ */
   template <typename ... T>
   bool anyadirServicioConSusCaracteristicasYActivar( ServicioEnEmisora & servicio,
 													 // ServicioEnEmisora::Caracteristica & caracteristica,
@@ -312,6 +395,10 @@ public:
   } // ()
 
   // .........................................................
+  /**
+   * Los siguientes metodos se encargan de instalar los callbacks 
+   * para el control de la conexion, tanto establecida como terminada
+   */
   // .........................................................
   void instalarCallbackConexionEstablecida( CallbackConexionEstablecida cb ) {
 	Bluefruit.Periph.setConnectCallback( cb );
@@ -337,4 +424,3 @@ public:
 // ----------------------------------------------------------
 // ----------------------------------------------------------
 // ----------------------------------------------------------
-

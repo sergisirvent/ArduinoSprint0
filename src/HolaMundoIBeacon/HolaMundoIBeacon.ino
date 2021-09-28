@@ -19,6 +19,7 @@
 #undef max // colisionan con los de la biblioteca estándar
 
 // --------------------------------------------------------------
+//incluimos librerias
 // --------------------------------------------------------------
 #include "LED.h"
 #include "PuertoSerie.h"
@@ -35,6 +36,7 @@ namespace Globales {
 };
 
 // --------------------------------------------------------------
+//incluimos librerias
 // --------------------------------------------------------------
 #include "EmisoraBLE.h"
 #include "Publicador.h"
@@ -44,7 +46,7 @@ namespace Globales {
 // --------------------------------------------------------------
 // --------------------------------------------------------------
 namespace Globales {
-
+//creamos los objetos de publicador y medidor
   Publicador elPublicador;
 
   Medidor elMedidor;
@@ -67,7 +69,7 @@ void setup() {
   Globales::elPuerto.esperarDisponible();
 
   // 
-  // 
+  // llamamos al metodo de iniciar la plaquita
   // 
   inicializarPlaquita();
 
@@ -75,14 +77,14 @@ void setup() {
   // suspendLoop();
 
   // 
-  // 
+  // encendemos la emisora
   // 
   Globales::elPublicador.encenderEmisora();
 
   // Globales::elPublicador.laEmisora.pruebaEmision();
   
   // 
-  // 
+  // inicializamos medidor
   // 
   Globales::elMedidor.iniciarMedidor();
 
@@ -114,6 +116,7 @@ inline void lucecitas() {
 // loop ()
 // --------------------------------------------------------------
 namespace Loop {
+  //inicializamos contador
   uint8_t cont = 0;
 };
 
@@ -126,11 +129,13 @@ void loop () {
 
   cont++;
 
+  //empezamos con el contador
   elPuerto.escribir( "\n---- loop(): empieza " );
   elPuerto.escribir( cont );
   elPuerto.escribir( "\n" );
 
 
+  //llamamos al metodo de leds
   lucecitas();
 
   // 
@@ -170,6 +175,8 @@ void loop () {
   };
 
   // elPublicador.laEmisora.emitirAnuncioIBeaconLibre ( &datos[0], 21 );
+
+  //emitimos anuncio, esperamos y detenemos anuncio
   elPublicador.laEmisora.emitirAnuncioIBeaconLibre ( "MolaMolaMolaMolaMolaM", 21 );
 
   esperar( 2000 );
