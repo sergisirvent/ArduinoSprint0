@@ -3,7 +3,7 @@
 // --------------------------------------------------------------
 //
 // Sergi Sirvent Sempere
-// 2021-10
+// 2021-09
 //
 // --------------------------------------------------------------
 
@@ -23,6 +23,7 @@
 // --------------------------------------------------------------
 #include "LED.h"
 #include "PuertoSerie.h"
+#include <Adafruit_TinyUSB.h>
 
 // --------------------------------------------------------------
 // --------------------------------------------------------------
@@ -145,7 +146,7 @@ void loop () {
   
   elPublicador.publicarCO2( valorCO2,
 							cont,
-							1000 // intervalo de emisión
+							8000 // intervalo de emisión
 							);
   
   // 
@@ -155,7 +156,7 @@ void loop () {
   
   elPublicador.publicarTemperatura( valorTemperatura, 
 									cont,
-									1000 // intervalo de emisión
+									8000 // intervalo de emisión
 									);
 
   // 
@@ -177,7 +178,7 @@ void loop () {
   // elPublicador.laEmisora.emitirAnuncioIBeaconLibre ( &datos[0], 21 );
 
   //emitimos anuncio, esperamos y detenemos anuncio
-  elPublicador.laEmisora.emitirAnuncioIBeaconLibre ( "MolaMolaMolaMolaMolaM", 21 );
+  //elPublicador.laEmisora.emitirAnuncioIBeaconLibre ( "MolaMolaMolaMolaMolaM", 21 );
 
   esperar( 2000 );
 

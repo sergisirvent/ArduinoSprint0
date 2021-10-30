@@ -1,8 +1,8 @@
 // -*- mode: c++ -*-
 
 // ----------------------------------------------------------
-// Jordi Bataller i Mascarell
-// 2019-07-07
+// Sergi Sirvent Sempere
+// 2021/09
 // ----------------------------------------------------------
 #ifndef EMISORA_H_INCLUIDO
 #define EMISORA_H_INCLUIDO
